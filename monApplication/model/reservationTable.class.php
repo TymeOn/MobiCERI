@@ -7,7 +7,7 @@ class reservationTable {
     public static function getReservationByVoyage($voyage) {
         $em = dbconnection::getInstance()->getEntityManager() ;
         $reservationRepository = $em->getRepository('reservation');
-        $reservations = $reservationRepository->findBy(array('voyage' => $voyage ));
+        $reservations = $reservationRepository->findBy(array('voyage' => $voyage->id));
         if ($reservations == false) {
             echo 'Erreur sql';
         }

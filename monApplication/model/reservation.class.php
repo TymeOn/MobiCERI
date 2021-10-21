@@ -16,13 +16,13 @@ class reservation {
 	public $id;
 
 	/**
-	 * @OneToOne(targetEntity="voyage")
+	 * @ManyToOne(targetEntity="voyage")
 	 * @JoinColumn(name="voyage", referencedColumnName="id")
 	 */
 	public $voyage;
 
     /**
-     * @OneToOne(targetEntity="utilisateur")
+     * @ManyToOne(targetEntity="utilisateur")
      * @JoinColumn(name="voyageur", referencedColumnName="id")
      */
     public $voyageur;
