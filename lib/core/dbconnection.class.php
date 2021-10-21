@@ -1,9 +1,11 @@
 <?php
 
-define ('HOST', 'pedago01c.univ-avignon.fr') ;
-define ('USER', ''  ) ;
-define ('PASS', '' ) ;
-define ('DB', 'etd' ) ;
+$dbconfig = include('dbconfig.php');
+
+define ('HOST', 'pedago01c.univ-avignon.fr');
+define ('USER', $dbconfig['login']);
+define ('PASS', $dbconfig['password']);
+define ('DB', 'etd');
 
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
@@ -32,7 +34,7 @@ private function __construct(){
 //	self::$entityManager = \Doctrine\ORM\EntityManager::create($param, $config);
 	self::$entityManager = EntityManager::create($param, $config);
 
-	echo "is connected : ".self::$entityManager->getConnection()->getDatabase();
+    //	echo "is connected : ".self::$entityManager->getConnection()->getDatabase();
 
 }	
 

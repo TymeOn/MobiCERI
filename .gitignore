@@ -1,2 +1,3 @@
 # PhpStorm config folder
 .idea
+lib/core/dbconfig.php
