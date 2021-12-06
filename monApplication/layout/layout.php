@@ -1,26 +1,19 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
     <head>
-        <!-- Bootstrap-->
+        <!-- Bootstrap -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>Ton appli !</title>
     </head>
 
     <body>
-        <?php if($context->error): ?>
-            <div id="flash_error" class="error">
-                <?php echo "ERREUR: $context->error" ?>
-            </div>
-        <?php endif; ?>
-
-        <?php if($context->info): ?>
-            <div id="flash_info" class="info">
-                <?php echo "INFO: $context->info" ?>
-            </div>
-        <?php endif; ?>
+        <div id="alerts" style="position: absolute; top: 64px; right: 8px; z-index: 100"></div>
 
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <a class="navbar-brand" style="margin-left: 15px" href="monapplication.php">MobiCERI</a>
@@ -40,5 +33,19 @@
             </div>
         </div>
     </body>
+
+    <script type="javascript">
+        function displayAlerts() {
+            let alerts = JSON.parse('<?=json_encode($context->alerts);?>');
+            Object.keys(alerts).forEach(function (key){
+                $("#alerts").append(
+                    "<div class='alert alert-" + alerts[key].type.toLowerCase() + " alert-dismissible mb-2' role='alert'>" +
+                        "<span>" + alerts[key].type + ": " + alerts[key].message + "</span>"+
+                        "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>" +
+                    "</div>"
+                );
+            });
+        }
+    </script>
 
 </html>
