@@ -18,8 +18,7 @@ session_start();
 
 $context = context::getInstance();
 $context->init($nameApp);
-$context->alerts = [];
-
+$context->alerts = array();
 
 $view=$context->executeAction($action, $_REQUEST);
 

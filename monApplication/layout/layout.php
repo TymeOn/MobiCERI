@@ -34,14 +34,13 @@
         </div>
     </body>
 
-    <script type="javascript">
-        function displayAlerts() {
-            let alerts = JSON.parse('<?=json_encode($context->alerts);?>');
+    <script>
+        window.displayAlerts = function (alerts) {
             Object.keys(alerts).forEach(function (key){
                 $("#alerts").append(
                     "<div class='alert alert-" + alerts[key].type.toLowerCase() + " alert-dismissible mb-2' role='alert'>" +
-                        "<span>" + alerts[key].type + ": " + alerts[key].message + "</span>"+
-                        "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>" +
+                    "<span>" + alerts[key].type + ": " + alerts[key].message + "</span>"+
+                    "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>" +
                     "</div>"
                 );
             });

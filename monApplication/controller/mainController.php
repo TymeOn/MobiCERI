@@ -31,10 +31,12 @@ class mainController
             $context->trips = voyageTable::getVoyagesByTrajet($selectedRoute);
         }
 
-        $context->alerts[] = [
+        // setting the notification
+        $context->alerts = array();
+        array_push($context->alerts, [
             "type" => "INFO",
-            "message" => "TEST",
-        ];
+            "message" => "Recherche terminée",
+        ]);
 
         return context::SUCCESS;
     }
