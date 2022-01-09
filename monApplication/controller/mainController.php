@@ -127,104 +127,113 @@ class mainController
     }
 
     // register action
-    public static function register($request,$context) {
+    public static function register($request,$context)
+    {
         $login = $request['login'] ?? null;
         $name = $request['name'] ?? null;
         $firstName = $request['firstName'] ?? null;
         $password = $request['password'] ?? null;
         $confirmPassword = $request['confirmPassword'] ?? null;
 
-        $validRegistration = true;
+        if ($login !== null && $name !== null && $firstName !== null && $password !== null && $confirmPassword !== null) {
 
-        if (!$login || empty($login)) {
-            $validRegistration = false;
-            array_push($context->alerts, [
-                "type" => "ERREUR",
-                "class" => "danger",
-                "message" => "La saisie d un identifiant est obligatoire",
-            ]);
-        } else if (strlen($login) > 45) {
-            $validRegistration = false;
-            array_push($context->alerts, [
-                "type" => "ERREUR",
-                "class" => "danger",
-                "message" => "L identifiant saisi est trop long",
-            ]);
-        }
+            $validRegistration = true;
 
-        if (!$name) {
-            $validRegistration = false;
-            array_push($context->alerts, [
-                "type" => "ERREUR",
-                "class" => "danger",
-                "message" => "La saisie d un nom est obligatoire",
-            ]);
-        } else if (strlen($name) > 45) {
-            $validRegistration = false;
-            array_push($context->alerts, [
-                "type" => "ERREUR",
-                "class" => "danger",
-                "message" => "Le nom saisi est trop long",
-            ]);
-        }
-
-        if (!$firstName) {
-            $validRegistration = false;
-            array_push($context->alerts, [
-                "type" => "ERREUR",
-                "class" => "danger",
-                "message" => "La saisie d un prénom est obligatoire",
-            ]);
-        } else if (strlen($firstName) > 45) {
-            $validRegistration = false;
-            array_push($context->alerts, [
-                "type" => "ERREUR",
-                "class" => "danger",
-                "message" => "Le prénom saisi est trop long",
-            ]);
-        }
-
-        if (!$password) {
-            $validRegistration = false;
-            array_push($context->alerts, [
-                "type" => "ERREUR",
-                "class" => "danger",
-                "message" => "La saisie d un mot de passe est obligatoire",
-            ]);
-        } else if (strlen($password) > 45) {
-            $validRegistration = false;
-            array_push($context->alerts, [
-                "type" => "ERREUR",
-                "class" => "danger",
-                "message" => "Le mot de passe saisi est trop long",
-            ]);
-        }
-
-        if (!$confirmPassword || $password != $confirmPassword) {
-            $validRegistration = false;
-            array_push($context->alerts, [
-                "type" => "ERREUR",
-                "class" => "danger",
-                "message" => "Les deux mots de passe saisis ne correspondent pas",
-            ]);
-        }
-
-        // final check and
-        if ($validRegistration) {
-            $newUser = utilisateurTable::createUser($login, $password, $name, $firstName);
-            if ($newUser) {
-                array_push($context->alerts, [
-                    "type" => "SUCCES",
-                    "class" => "success",
-                    "message" => "Le compte a été créé avec succès",
-                ]);
-            } else {
+            if (empty($login)) {
+                $validRegistration = false;
                 array_push($context->alerts, [
                     "type" => "ERREUR",
                     "class" => "danger",
-                    "message" => "Une erreur est survenue, veuillez réessayer",
+                    "message" => "La saisie d un identifiant est obligatoire",
+                ]);
+            } else if (strlen($login) > 45) {
+                $validRegistration = false;
+                array_push($context->alerts, [
+                    "type" => "ERREUR",
+                    "class" => "danger",
+                    "message" => "L identifiant saisi est trop long",
                 ]);
             }
+
+            if (empty($name)) {
+                $validRegistration = false;
+                array_push($context->alerts, [
+                    "type" => "ERREUR",
+                    "class" => "danger",
+                    "message" => "La saisie d un nom est obligatoire",
+                ]);
+            } else if (strlen($name) > 45) {
+                $validRegistration = false;
+                array_push($context->alerts, [
+                    "type" => "ERREUR",
+                    "class" => "danger",
+                    "message" => "Le nom saisi est trop long",
+                ]);
+            }
+
+            if (empty($firstName)) {
+                $validRegistration = false;
+                array_push($context->alerts, [
+                    "type" => "ERREUR",
+                    "class" => "danger",
+                    "message" => "La saisie d un prénom est obligatoire",
+                ]);
+            } else if (strlen($firstName) > 45) {
+                $validRegistration = false;
+                array_push($context->alerts, [
+                    "type" => "ERREUR",
+                    "class" => "danger",
+                    "message" => "Le prénom saisi est trop long",
+                ]);
+            }
+
+            if (empty($password)) {
+                $validRegistration = false;
+                array_push($context->alerts, [
+                    "type" => "ERREUR",
+                    "class" => "danger",
+                    "message" => "La saisie d un mot de passe est obligatoire",
+                ]);
+            } else if (strlen($password) > 45) {
+                $validRegistration = false;
+                array_push($context->alerts, [
+                    "type" => "ERREUR",
+                    "class" => "danger",
+                    "message" => "Le mot de passe saisi est trop long",
+                ]);
+            }
+
+            if (empty($confirmPassword) || $password != $confirmPassword) {
+                $validRegistration = false;
+                array_push($context->alerts, [
+                    "type" => "ERREUR",
+                    "class" => "danger",
+                    "message" => "Les deux mots de passe saisis ne correspondent pas",
+                ]);
+            }
+
+            // final check and
+            if ($validRegistration) {
+                $newUser = utilisateurTable::createUser($login, $password, $name, $firstName);
+                if ($newUser) {
+                    array_push($context->alerts, [
+                        "type" => "SUCCES",
+                        "class" => "success",
+                        "message" => "Le compte a été créé avec succès",
+                    ]);
+                } else {
+                    array_push($context->alerts, [
+                        "type" => "ERREUR",
+                        "class" => "danger",
+                        "message" => "Une erreur est survenue, veuillez réessayer",
+                    ]);
+                }
+            }
+        }
+
+        return context::SUCCESS;
+    }
+
         }
 
         return context::SUCCESS;
