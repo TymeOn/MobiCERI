@@ -91,5 +91,144 @@ class mainController
         return context::SUCCESS;
     }
 
+    // login action
+    public static function login($request,$context) {
+        $login = $request['login'] ?? null;
+        $password = $request['password'] ?? null;
+        if ($login && $password) {
+//            $user = utilisateurTable::getUserByLoginAndPass($login, $password);
+//            if ($user) {
+//                $context->setSessionAttribute('userId', $user->id);
+//                $context->setSessionAttribute('userName', $user->nom);
+//                $context->setSessionAttribute('userFirstName', $user->prenom);
+            if (true) {
+                $context->setSessionAttribute('userId', 100);
+                $context->setSessionAttribute('userName', 'Test');
+                $context->setSessionAttribute('userFirstName', 'Johny');
+                $context->redirect('monApplication.php');
+                die();
+            } else {
+                array_push($context->alerts, [
+                    "type" => "ERREUR",
+                    "class" => "danger",
+                    "message" => "Identifiant ou mot de passe erroné",
+                ]);
+            }
+        }
+
+        return context::SUCCESS;
+    }
+
+    // logout action
+    public static function logout($request,$context) {
+        session_unset();
+        $context->redirect('monApplication.php');
+        die();
+    }
+
+    // register action
+    public static function register($request,$context) {
+        $login = $request['login'] ?? null;
+        $name = $request['name'] ?? null;
+        $firstName = $request['firstName'] ?? null;
+        $password = $request['password'] ?? null;
+        $confirmPassword = $request['confirmPassword'] ?? null;
+
+        $validRegistration = true;
+
+        if (!$login || empty($login)) {
+            $validRegistration = false;
+            array_push($context->alerts, [
+                "type" => "ERREUR",
+                "class" => "danger",
+                "message" => "La saisie d un identifiant est obligatoire",
+            ]);
+        } else if (strlen($login) > 45) {
+            $validRegistration = false;
+            array_push($context->alerts, [
+                "type" => "ERREUR",
+                "class" => "danger",
+                "message" => "L identifiant saisi est trop long",
+            ]);
+        }
+
+        if (!$name) {
+            $validRegistration = false;
+            array_push($context->alerts, [
+                "type" => "ERREUR",
+                "class" => "danger",
+                "message" => "La saisie d un nom est obligatoire",
+            ]);
+        } else if (strlen($name) > 45) {
+            $validRegistration = false;
+            array_push($context->alerts, [
+                "type" => "ERREUR",
+                "class" => "danger",
+                "message" => "Le nom saisi est trop long",
+            ]);
+        }
+
+        if (!$firstName) {
+            $validRegistration = false;
+            array_push($context->alerts, [
+                "type" => "ERREUR",
+                "class" => "danger",
+                "message" => "La saisie d un prénom est obligatoire",
+            ]);
+        } else if (strlen($firstName) > 45) {
+            $validRegistration = false;
+            array_push($context->alerts, [
+                "type" => "ERREUR",
+                "class" => "danger",
+                "message" => "Le prénom saisi est trop long",
+            ]);
+        }
+
+        if (!$password) {
+            $validRegistration = false;
+            array_push($context->alerts, [
+                "type" => "ERREUR",
+                "class" => "danger",
+                "message" => "La saisie d un mot de passe est obligatoire",
+            ]);
+        } else if (strlen($password) > 45) {
+            $validRegistration = false;
+            array_push($context->alerts, [
+                "type" => "ERREUR",
+                "class" => "danger",
+                "message" => "Le mot de passe saisi est trop long",
+            ]);
+        }
+
+        if (!$confirmPassword || $password != $confirmPassword) {
+            $validRegistration = false;
+            array_push($context->alerts, [
+                "type" => "ERREUR",
+                "class" => "danger",
+                "message" => "Les deux mots de passe saisis ne correspondent pas",
+            ]);
+        }
+
+        // final check and
+        if ($validRegistration) {
+            $newUser = utilisateurTable::createUser($login, $password, $name, $firstName);
+            if ($newUser) {
+                array_push($context->alerts, [
+                    "type" => "SUCCES",
+                    "class" => "success",
+                    "message" => "Le compte a été créé avec succès",
+                ]);
+            } else {
+                array_push($context->alerts, [
+                    "type" => "ERREUR",
+                    "class" => "danger",
+                    "message" => "Une erreur est survenue, veuillez réessayer",
+                ]);
+            }
+        }
+
+        return context::SUCCESS;
+    }
+
 }
 ?>

@@ -8,9 +8,6 @@ class utilisateurTable {
 		$em = dbconnection::getInstance()->getEntityManager() ;
 		$userRepository = $em->getRepository('utilisateur');
 		$user = $userRepository->findOneBy(array('identifiant' => $login, 'pass' => $pass));
-		if ($user == false) {
-			echo 'Erreur sql';
-		}
 		return $user;
 	}
 
@@ -18,11 +15,23 @@ class utilisateurTable {
 		$em = dbconnection::getInstance()->getEntityManager() ;
 		$userRepository = $em->getRepository('utilisateur');
 		$user = $userRepository->findOneBy(array('id' => $id));
-		if ($user == false) {
-			echo 'Erreur sql';
-		}
+
 		return $user;
 	}
+
+    public static function createUser($login, $password, $name, $firstName) {
+        $em = dbconnection::getInstance()->getEntityManager();
+        $user = new utilisateur();
+        $user->identifiant = $login;
+        $user->pass = $password;
+        $user->nom = $name;
+        $user->prenom = $firstName;
+
+        $em->persist($user);
+        $em->flush();
+
+        return $user;
+    }
 
 }
 

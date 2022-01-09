@@ -34,11 +34,38 @@
                 <li class="nav-item">
                     <a class="nav-link" href="monapplication.php?action=tripSearch">Recherche</a>
                 </li>
+                <?php if($context->getSessionAttribute('userId')): ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="monapplication.php?action=userTrips">Mes réservations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="monapplication.php">Proposer un voyage</a>
+                    </li>
+                <?php endif; ?>
+            </ul>
+            <ul class="navbar-nav ms-auto me-3">
+                <?php if($context->getSessionAttribute('userId')): ?>
+                    <li class="nav-item">
+                        <p class="navbar-text pb-0">
+                            <span>Connecté en tant que:</span>
+                            <span><?=$context->getSessionAttribute('userFirstName')?></span>
+                            <span><?=$context->getSessionAttribute('userName')?></span>
+                        </p>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="monapplication.php?action=logout">Déconnexion</a>
+                    </li>
+                <?php else: ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="monapplication.php?action=login">Connexion</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="monapplication.php?action=register">Inscription</a>
+                    </li>
+                <?php endif; ?>
+
             </ul>
         </nav>
-        <?php if($context->getSessionAttribute('user_id')): ?>
-        <?php echo $context->getSessionAttribute('user_id')." est connecte"; ?>
-        <?php endif; ?>
 
         <div id="page">
             <div id="page_maincontent" class="container-fluid">

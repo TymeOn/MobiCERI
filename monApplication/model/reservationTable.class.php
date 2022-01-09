@@ -14,6 +14,16 @@ class reservationTable {
         return $reservations;
     }
 
+    public static function getReservationByUserId($userId) {
+        $em = dbconnection::getInstance()->getEntityManager() ;
+        $reservationRepository = $em->getRepository('reservation');
+        $reservations = $reservationRepository->findBy(array('voyageur' => $userId));
+        if ($reservations == false) {
+            echo 'Erreur sql';
+        }
+        return $reservations;
+    }
+
 }
 
 ?>
