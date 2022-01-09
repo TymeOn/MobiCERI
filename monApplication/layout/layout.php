@@ -29,17 +29,17 @@
         <div id="alerts" style="position: absolute; top: 64px; right: 8px; z-index: 100"></div>
 
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand ms-3" href="monapplication.php">MobiCERI</a>
+            <a class="navbar-brand ms-3" href="monApplication.php">MobiCERI</a>
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="monapplication.php?action=tripSearch">Recherche</a>
+                    <a class="nav-link" href="monApplication.php?action=tripSearch">Recherche</a>
                 </li>
                 <?php if($context->getSessionAttribute('userId')): ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="monapplication.php?action=userTrips">Mes réservations</a>
+                        <a class="nav-link" href="monApplication.php?action=userTrips">Mes réservations</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="monapplication.php">Proposer un voyage</a>
+                        <a class="nav-link" href="monApplication.php">Proposer un voyage</a>
                     </li>
                 <?php endif; ?>
             </ul>
@@ -53,14 +53,14 @@
                         </p>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="monapplication.php?action=logout">Déconnexion</a>
+                        <a class="nav-link" href="monApplication.php?action=logout">Déconnexion</a>
                     </li>
                 <?php else: ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="monapplication.php?action=login">Connexion</a>
+                        <a class="nav-link" href="monApplication.php?action=login">Connexion</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="monapplication.php?action=register">Inscription</a>
+                        <a class="nav-link" href="monApplication.php?action=register">Inscription</a>
                     </li>
                 <?php endif; ?>
 
