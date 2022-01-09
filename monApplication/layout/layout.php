@@ -12,11 +12,24 @@
         <title>Ton appli !</title>
     </head>
 
+    <script>
+        window.displayAlerts = function (alerts) {
+            Object.keys(alerts).forEach(function (key){
+                $("#alerts").append(
+                    "<div class='alert alert-" + alerts[key].class.toLowerCase() + " alert-dismissible mb-2' role='alert'>" +
+                    "<span>" + alerts[key].type + ": " + alerts[key].message + "</span>"+
+                    "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>" +
+                    "</div>"
+                );
+            });
+        }
+    </script>
+
     <body>
         <div id="alerts" style="position: absolute; top: 64px; right: 8px; z-index: 100"></div>
 
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" style="margin-left: 15px" href="monapplication.php">MobiCERI</a>
+            <a class="navbar-brand ms-3" href="monapplication.php">MobiCERI</a>
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" href="monapplication.php?action=tripSearch">Recherche</a>
@@ -33,18 +46,5 @@
             </div>
         </div>
     </body>
-
-    <script>
-        window.displayAlerts = function (alerts) {
-            Object.keys(alerts).forEach(function (key){
-                $("#alerts").append(
-                    "<div class='alert alert-" + alerts[key].type.toLowerCase() + " alert-dismissible mb-2' role='alert'>" +
-                    "<span>" + alerts[key].type + ": " + alerts[key].message + "</span>"+
-                    "<button type='button' class='btn-close' data-bs-dismiss='alert'></button>" +
-                    "</div>"
-                );
-            });
-        }
-    </script>
 
 </html>

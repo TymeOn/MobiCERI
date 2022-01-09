@@ -21,6 +21,16 @@
         </select>
     </div>
 
+    <div class="p-2" style="max-width: 10%">
+        <label for="nbPlaceInput">Places</label>
+        <input id="nbPlaceInput" class="form-control" type="number" value="1">
+    </div>
+
+    <div class="mt-4 p-2">
+        <input class="form-check-input" type="checkbox" id="directRouteCheck">
+        <label class="form-check-label" for="directRouteCheck">Trajet direct</label>
+    </div>
+
     <div class="p-2">
         <button id="searchSubmitButton" class="btn btn-primary mt-4">Rechercher</button>
     </div>
@@ -36,7 +46,11 @@
 
         // getting the results of the search
         $.ajax({
-            url: "ajaxDispatcher.php?action=tripSearchResults&startCity=" + $("#startCitySelect").val() + "&endCity=" + $("#endCitySelect").val(),
+            url: "ajaxDispatcher.php?action=tripSearchResults"
+                + "&startCity=" + $("#startCitySelect").val()
+                + "&endCity=" + $("#endCitySelect").val()
+                + "&nbPlace=" + $("#nbPlaceInput").val()
+                + "&directRoute=" + $("#directRouteCheck").prop('checked'),
             success: function(result) {
                 $("#resultsDisplay").html(result);
             }
@@ -44,6 +58,3 @@
 
     });
 </script>
-
-
-
