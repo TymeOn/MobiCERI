@@ -290,8 +290,15 @@ class mainController
     }
 
 
-    // trip creation
-    public static function newTrip($request,$context)
+    // trip creation basic action
+    public static function newTrip($request,$context) {
+        $context->cities = trajetTable::getCities();
+        return context::SUCCESS;
+    }
+
+
+    // trip creation ajax
+    public static function newTripResults($request,$context)
     {
         $userId = $request['userId'] ?? null;
         $startCity = $request['startCity'] ?? null;
@@ -301,10 +308,9 @@ class mainController
         $depTime = $request['depTime'] ?? null;
         $constraints = $request['constraints'] ?? null;
 
-        $context->cities = trajetTable::getCities();
-
         if ($price !== null && $nbSeats !== null && $depTime !== null && $constraints !== null) {
 
+            $context->alerts = [];
             $validTrip = true;
 
             // all attributes validity check

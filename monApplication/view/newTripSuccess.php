@@ -2,8 +2,8 @@
     <div class="card" style="width: 40%;">
         <div class="card-body">
             <h1 class="card-title">Proposer un voyage</h1>
-            <form method="post">
-                <input type="hidden" name="userId" value="<?=$context->getSessionAttribute('userId')?>">
+            <div>
+                <input type="hidden" id="inputUserId" name="userId" value="<?=$context->getSessionAttribute('userId')?>">
                 <div class="mb-3">
                     <label for="startCitySelect">Départ</label>
                     <select id="startCitySelect" name="startCity" class="form-control form-select">
@@ -36,13 +36,30 @@
                     <label for="inputConstraints" class="form-label">Contraintes</label>
                     <input type="text" name="constraints" class="form-control" id="inputConstraints" maxlength="500">
                 </div>
-                <button type="submit" class="btn btn-primary">Envoyer</button>.
-            </form>
+                <button id="tripSubmitButton" class="btn btn-primary">Envoyer</button>.
+            </div>
         </div>
     </div>
 </div>
 
+<div id="resultsDisplay"></div>
+
 <script>
-    var alerts = JSON.parse('<?=json_encode($context->alerts);?>');
-    window.displayAlerts(alerts);
+    $("#tripSubmitButton").on('click', function() {
+        // getting the results of the search
+        $.ajax({
+            url: "ajaxDispatcher.php?action=newTripResults"
+                + "&userId=" + $("#inputUserId").val()
+                + "&startCity=" + $("#startCitySelect").val()
+                + "&endCity=" + $("#endCitySelect").val()
+                + "&price=" + $("#inputPrice").val()
+                + "&nbSeats=" + $("#inputNbSeats").val()
+                + "&depTime=" + $("#inputDepTime").val()
+                + "&constraints=" + $("#inputConstraints").val(),
+            success: function(result) {
+                $("#resultsDisplay").html(result);
+            }
+        });
+
+    });
 </script>
