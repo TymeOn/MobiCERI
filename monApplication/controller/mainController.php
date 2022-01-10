@@ -74,7 +74,7 @@ class mainController
                 $fullTrip = voyageTable::getVoyage($t['f_vid']);
                 $currentTrip['path'] = array_merge($currentTrip['path'], $fullTrip);
                 $currentTrip['info']['price'] += $fullTrip[0]->tarif;
-                $currentTrip['info']['tripIds'] .= '/' . $fullTrip[0]->id;
+                $currentTrip['info']['tripIds'] .= $fullTrip[0]->id . "/";
                 if ($t['f_varr'] == $context->endCity) {
                     $context->trips = array_merge($context->trips, [$currentTrip]);
                 } else {

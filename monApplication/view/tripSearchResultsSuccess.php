@@ -59,12 +59,20 @@
 
 <script>
     var sections = document.getElementsByClassName('resaSection');
-
-    if (document.getElementById('isLogged').dataset.value !== '') {
+    var userId = document.getElementById('isLogged').dataset.value;
+    if (userId !== '') {
         Array.from(sections).forEach(section => {
             const tripIds = section.dataset.value.split("/");
-            console.log(tripIds);
-            section.innerHTML = "<a class='btn btn-primary' href='monApplication.php?action=login'>Reserver</a>";
+            tripIds.pop();
+
+            var url = "monApplication.php?action=login&userId=" + userId;
+            var urlCount = 1;
+            tripIds.forEach(tripId => {
+                url += "&tripId" + urlCount + "=" + tripId;
+                urlCount++;
+            });
+
+            section.innerHTML = "<a class='btn btn-primary' href='" + url + "'>Reserver</a>";
         });
     } else {
         Array.from(sections).forEach(section => {
