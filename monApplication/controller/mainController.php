@@ -272,7 +272,14 @@ class mainController
             $context->redirect('monApplication.php');
             die();
         }
+        return context::SUCCESS;
+    }
 
+
+    // view trips of a user ajax action
+    public static function userTripsResults($request,$context)
+    {
+        $userId = $request['userId'];
         $reservations = reservationTable::getReservationByUserId($userId);
         $context->trips = [];
         foreach ($reservations as $r) {
