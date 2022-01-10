@@ -26,7 +26,7 @@
                                 </svg>
                             </span>
                     <span class="col-2 fst-italic">"<?=$t->contraintes?>"</span>
-                    <span class="col-2 fst-italic">-<?=$t->conducteur->prenom?> <?=$p->conducteur->nom?></span>
+                    <span class="col-2 fst-italic">-<?=$t->conducteur->prenom?> <?=$t->conducteur->nom?></span>
                     <span class="col-1 bg-primary rounded fs-4 fw-bold text-white text-center"><?=$t->tarif?>€</span>
                 </div>
             </div>

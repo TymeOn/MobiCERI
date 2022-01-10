@@ -247,11 +247,11 @@ class mainController
         }
 
         foreach ($tripIds as $t) {
-            var_dump(reservationTable::createReservation($t, $userId));
+            reservationTable::createReservation($t, $userId);
         }
 
-//        $context->redirect('monApplication.php?action=userTrips');
-//        die();
+        $context->redirect('monApplication.php?action=userTrips');
+        die();
     }
 
 
@@ -269,7 +269,12 @@ class mainController
         $context->trips = [];
 
         foreach ($reservations as $r) {
-            array_push($context->trips, voyageTable::getVoyage($r['voyage']));
+            $context->trips = array_merge($context->trips, voyageTable::getVoyage($r->voyage));
+        }
+
+        return context::SUCCESS;
+    }
+
         }
 
         return context::SUCCESS;

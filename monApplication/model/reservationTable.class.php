@@ -18,9 +18,6 @@ class reservationTable {
         $em = dbconnection::getInstance()->getEntityManager() ;
         $reservationRepository = $em->getRepository('reservation');
         $reservations = $reservationRepository->findBy(array('voyageur' => $userId));
-        if ($reservations == false) {
-            echo 'Erreur sql';
-        }
         return $reservations;
     }
 
@@ -29,16 +26,17 @@ class reservationTable {
         $em = dbconnection::getInstance()->getEntityManager();
 
         $trip = $em->getRepository('voyage')->find($tripId);
+        $user = $em->getRepository('utilisateur')->find($userId);
         $rValue = false;
 
         if ($trip->nbplace > 1) {
             $resa = new reservation();
-            $resa->voyage = $tripId;
-            $resa->voyageur = $userId;
+            $resa->voyage = $trip;
+            $resa->voyageur = $user;
             $trip->nbplace--;
 
-//            $em->persist($resa);
-//            $em->flush();
+            $em->persist($resa);
+            $em->flush();
 
             $rValue = $resa;
         }
