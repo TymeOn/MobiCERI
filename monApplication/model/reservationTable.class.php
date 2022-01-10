@@ -37,8 +37,8 @@ class reservationTable {
             $resa->voyageur = $userId;
             $trip->nbPlace--;
 
-            $em->persist($resa);
-            $em->flush();
+//            $em->persist($resa);
+//            $em->flush();
 
             $rValue = $resa;
         }

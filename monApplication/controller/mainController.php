@@ -246,10 +246,8 @@ class mainController
             $count++;
         }
 
-        var_dump($tripIds);
-
         foreach ($tripIds as $t) {
-            //reservationTable::createReservation($t, $userId);
+            var_dump(reservationTable::createReservation($t, $userId));
         }
 
 //        $context->redirect('monApplication.php?action=userTrips');
