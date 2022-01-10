@@ -234,10 +234,28 @@ class mainController
         return context::SUCCESS;
     }
 
-        }
-
-        return context::SUCCESS;
-    
+    // view trips of a user action
+//    public static function userTrips($request,$context)
+//    {
+//        $userId = $context->getSessionAttribute('userId');
+//        if (!$userId) {
+//            $context->redirect('monApplication.php');
+//            die();
+//        }
+//
+//        // $reservations = reservationTable::getReservationByUserId($userId);
+//        $reservations = [[
+//            'voyage' => 100,
+//        ]];
+//
+//        $context->trips = [];
+//
+//        foreach ($reservations as $r) {
+//            //$fullTrip = voyageTable::getVoyage($r['voyage']);
+//        }
+//
+//        return context::SUCCESS;
+//    }
 
 }
 ?>
