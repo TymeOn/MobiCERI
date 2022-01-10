@@ -62,7 +62,8 @@
 
     if (document.getElementById('isLogged').dataset.value !== '') {
         Array.from(sections).forEach(section => {
-            console.log(section.dataset.value);
+            const tripIds = section.dataset.value.split("/");
+            console.log(tripIds);
             section.innerHTML = "<a class='btn btn-primary' href='monApplication.php?action=login'>Reserver</a>";
         });
     } else {
