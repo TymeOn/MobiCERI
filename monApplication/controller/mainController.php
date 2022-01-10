@@ -99,15 +99,11 @@ class mainController
         $login = $request['login'] ?? null;
         $password = $request['password'] ?? null;
         if ($login && $password) {
-//            $user = utilisateurTable::getUserByLoginAndPass($login, $password);
-//            if ($user) {
-//                $context->setSessionAttribute('userId', $user->id);
-//                $context->setSessionAttribute('userName', $user->nom);
-//                $context->setSessionAttribute('userFirstName', $user->prenom);
-            if (true) {
-                $context->setSessionAttribute('userId', 100);
-                $context->setSessionAttribute('userName', 'Test');
-                $context->setSessionAttribute('userFirstName', 'Johny');
+            $user = utilisateurTable::getUserByLoginAndPass($login, $password);
+            if ($user) {
+                $context->setSessionAttribute('userId', $user->id);
+                $context->setSessionAttribute('userName', $user->nom);
+                $context->setSessionAttribute('userFirstName', $user->prenom);
                 $context->redirect('monApplication.php');
                 die();
             } else {
