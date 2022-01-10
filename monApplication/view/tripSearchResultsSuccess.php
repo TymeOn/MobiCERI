@@ -58,7 +58,7 @@
 <?php endif ?>
 
 <script>
-    let sections = document.getElementsByClassName('resaSection');
+    var sections = document.getElementsByClassName('resaSection');
 
     if (document.getElementById('isLogged').dataset.value !== '') {
         Array.from(sections).forEach(section => {

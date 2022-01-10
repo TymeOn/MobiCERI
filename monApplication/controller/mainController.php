@@ -65,7 +65,7 @@ class mainController
                             'connections' => '',
                             'price' => 0,
                             'id' => $counter,
-                            'tripIds' => $t['f_vid'],
+                            'tripIds' => '',
                         ],
                         'path' => [],
                     ];
@@ -74,11 +74,11 @@ class mainController
                 $fullTrip = voyageTable::getVoyage($t['f_vid']);
                 $currentTrip['path'] = array_merge($currentTrip['path'], $fullTrip);
                 $currentTrip['info']['price'] += $fullTrip[0]->tarif;
+                $currentTrip['info']['tripIds'] .= '/' . $fullTrip[0]->id;
                 if ($t['f_varr'] == $context->endCity) {
                     $context->trips = array_merge($context->trips, [$currentTrip]);
                 } else {
                     $currentTrip['info']['connections'] .= $t['f_varr'] . ' ';
-                    $currentTrip['info']['tripIds'] .= '/' . $t['f_vid'];
                 }
             }
         }
