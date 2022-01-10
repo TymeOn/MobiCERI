@@ -31,6 +31,8 @@ class reservationTable {
         $trip = $em->getRepository('voyage')->find($tripId);
         $rValue = false;
 
+        var_dump($trip);
+
         if ($trip->nbPlace > 1) {
             $resa = new reservation();
             $resa->voyage = $tripId;
