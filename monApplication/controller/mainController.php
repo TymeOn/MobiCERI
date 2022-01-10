@@ -235,27 +235,24 @@ class mainController
     }
 
     // view trips of a user action
-//    public static function userTrips($request,$context)
-//    {
-//        $userId = $context->getSessionAttribute('userId');
-//        if (!$userId) {
-//            $context->redirect('monApplication.php');
-//            die();
-//        }
-//
-//        // $reservations = reservationTable::getReservationByUserId($userId);
-//        $reservations = [[
-//            'voyage' => 100,
-//        ]];
-//
-//        $context->trips = [];
-//
-//        foreach ($reservations as $r) {
-//            //$fullTrip = voyageTable::getVoyage($r['voyage']);
-//        }
-//
-//        return context::SUCCESS;
-//    }
+    public static function userTrips($request,$context)
+    {
+        $userId = $context->getSessionAttribute('userId');
+        if (!$userId) {
+            $context->redirect('monApplication.php');
+            die();
+        }
+
+        $reservations = reservationTable::getReservationByUserId($userId);
+
+        $context->trips = [];
+
+        foreach ($reservations as $r) {
+            $context->trips = array_push($context->trips, voyageTable::getVoyage($r['voyage']));
+        }
+
+        return context::SUCCESS;
+    }
 
 }
 ?>
