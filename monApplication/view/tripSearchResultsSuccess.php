@@ -48,13 +48,13 @@
                     <?php endforeach; ?>
                     <div class="row card-body">
                         <span class="col-10"></span>
+                        <div id="resaSection">
+
+                        </div>
                         <?php if($context->getSessionAttribute('userId')): ?>
-                            <form method="post" class="col-2 p-0">
-                                <input type="hidden" name="resaCount" value="5">
-                                <button type="submit" class="btn btn-secondary">Reserver</button>
-                            </form>
+
                         <?php else: ?>
-                            <a class="btn btn-secondary col-2" href="monApplication.php?action=login">Connexion requise</a>
+
                         <?php endif; ?>
                     </div>
                 </div>
@@ -63,6 +63,16 @@
     </div>
 
 <?php endif ?>
+
+<script>
+    if (document.getElementById('isLogged').dataset.value !== '') {
+        document.getElementById('resaSection').innerHTML = "" +
+            "<a class='btn btn-secondary col-2' href='monApplication.php?action=login'>Reserver</a>";
+    } else {
+        document.getElementById('resaSection').innerHTML = "" +
+            "<a class='btn btn-secondary col-2' href='monApplication.php?action=login'>Connexion requise</a>";
+    }
+</script>
 
 <script>
     var alerts = JSON.parse('<?=json_encode($context->alerts);?>');

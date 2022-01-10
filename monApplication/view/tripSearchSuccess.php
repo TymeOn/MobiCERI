@@ -58,3 +58,5 @@
 
     });
 </script>
+
+<div id="isLogged" data-value="<?=($context->getSessionAttribute('userId'))?>" style="display: none"></div>
