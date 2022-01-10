@@ -65,7 +65,7 @@
             const tripIds = section.dataset.value.split("/");
             tripIds.pop();
 
-            var url = "monApplication.php?action=login&userId=" + userId;
+            var url = "monApplication.php?action=bookTrip&userId=" + userId;
             var urlCount = 1;
             tripIds.forEach(tripId => {
                 url += "&tripId" + urlCount + "=" + tripId;

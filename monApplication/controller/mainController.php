@@ -233,6 +233,30 @@ class mainController
         return context::SUCCESS;
     }
 
+
+    // book one or more trips
+    public static function bookTrips($request, $context) {
+        $userId = $request['userId'];
+        $tripIds = [];
+
+        $parameterName = 'tripId';
+        $count = 1;
+        while (isset($request[$parameterName.$count])) {
+            $tripIds = array_push($tripIds, $request[$parameterName.$count]);
+            $count++;
+        }
+
+        var_dump($tripIds);
+
+        foreach ($tripIds as $t) {
+            //reservationTable::createReservation($t, $userId);
+        }
+
+        $context->redirect('monApplication.php?action=userTrips');
+        die();
+    }
+
+
     // view trips of a user action
     public static function userTrips($request,$context)
     {
