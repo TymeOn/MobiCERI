@@ -7,12 +7,14 @@ class mainController
         return context::SUCCESS;
 	}
 
+
     // displays the trip search page
     public static function tripSearch($request,$context) {
         // departures and arrivals cities to populate our form
         $context->cities = trajetTable::getCities();
         return context::SUCCESS;
     }
+
 
     // search trips with specific start and end cities
     public static function tripSearchResults($request,$context) {
@@ -21,6 +23,8 @@ class mainController
 
         $nbPlace = $request['nbPlace'] ?? 0;
         $directRoute = $request['directRoute'] ?? false;
+
+        // use the simple search, without connections
         if ($directRoute == 'true') {
             // finding the route
             $selectedRoute = null;
@@ -51,6 +55,7 @@ class mainController
 
             }
 
+        // else, we use the advanced search, with connections
         } else {
 
             // finding trips
@@ -94,6 +99,7 @@ class mainController
         return context::SUCCESS;
     }
 
+
     // login action
     public static function login($request,$context) {
         $login = $request['login'] ?? null;
@@ -118,12 +124,14 @@ class mainController
         return context::SUCCESS;
     }
 
-    // logout action
-    public static function logout($request,$context) {
+
+    // logout action, resets the session
+    public static function logout($request, $context) {
         session_unset();
         $context->redirect('monApplication.php');
         die();
     }
+
 
     // register action
     public static function register($request,$context)
@@ -138,6 +146,7 @@ class mainController
 
             $validRegistration = true;
 
+            // all attributes validity check
             if (empty($login)) {
                 $validRegistration = false;
                 array_push($context->alerts, [
@@ -211,7 +220,7 @@ class mainController
                 ]);
             }
 
-            // final check and
+            // final check
             if ($validRegistration) {
                 $newUser = utilisateurTable::createUser($login, $password, $name, $firstName);
                 if ($newUser) {
@@ -255,7 +264,7 @@ class mainController
     }
 
 
-    // view trips of a user action
+    // view trips of a user
     public static function userTrips($request,$context)
     {
         $userId = $context->getSessionAttribute('userId');
@@ -265,9 +274,7 @@ class mainController
         }
 
         $reservations = reservationTable::getReservationByUserId($userId);
-
         $context->trips = [];
-
         foreach ($reservations as $r) {
             $context->trips = array_merge($context->trips, voyageTable::getVoyage($r->voyage));
         }
@@ -275,6 +282,78 @@ class mainController
         return context::SUCCESS;
     }
 
+
+    // trip creation
+    public static function newTrip($request,$context)
+    {
+        $userId = $request['userId'] ?? null;
+        $startCity = $request['startCity'] ?? null;
+        $endCity = $request['endCity'] ?? null;
+        $price = $request['price'] ?? null;
+        $nbSeats = $request['nbSeats'] ?? null;
+        $depTime = $request['depTime'] ?? null;
+        $constraints = $request['constraints'] ?? null;
+
+        $context->cities = trajetTable::getCities();
+
+        if ($price !== null && $nbSeats !== null && $depTime !== null && $constraints !== null) {
+
+            $validTrip = true;
+
+            // all attributes validity check
+            if (empty($price)) {
+                $validTrip = false;
+                array_push($context->alerts, [
+                    "type" => "ERREUR",
+                    "class" => "danger",
+                    "message" => "La saisie d un tarif est obligatoire",
+                ]);
+            }
+
+            if (empty($nbSeats)) {
+                $validTrip = false;
+                array_push($context->alerts, [
+                    "type" => "ERREUR",
+                    "class" => "danger",
+                    "message" => "La saisie d un nombre de places est obligatoire",
+                ]);
+            }
+
+            if (empty($depTime)) {
+                $validTrip = false;
+                array_push($context->alerts, [
+                    "type" => "ERREUR",
+                    "class" => "danger",
+                    "message" => "La saisie d une heure de depart est obligatoire",
+                ]);
+            }
+
+            if (strlen($constraints) > 500) {
+                $validTrip = false;
+                array_push($context->alerts, [
+                    "type" => "ERREUR",
+                    "class" => "danger",
+                    "message" => "Les contraintes saisies sont trop longues",
+                ]);
+            }
+
+            // final check
+            if ($validTrip) {
+                $newTrip = voyageTable::createTrip($userId, $startCity, $endCity, $price, $nbSeats, $depTime, $constraints);
+                if ($newTrip) {
+                    array_push($context->alerts, [
+                        "type" => "SUCCES",
+                        "class" => "success",
+                        "message" => "Le voyage a été créé avec succès",
+                    ]);
+                } else {
+                    array_push($context->alerts, [
+                        "type" => "ERREUR",
+                        "class" => "danger",
+                        "message" => "Une erreur est survenue, veuillez réessayer",
+                    ]);
+                }
+            }
         }
 
         return context::SUCCESS;
