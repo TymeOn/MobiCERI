@@ -39,7 +39,7 @@
                         <a class="nav-link" href="monApplication.php?action=userTrips">Mes réservations</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="monApplication.php">Proposer un voyage</a>
+                        <a class="nav-link" href="monApplication.php?action=newTrip">Proposer un voyage</a>
                     </li>
                 <?php endif; ?>
             </ul>

@@ -37,6 +37,25 @@ class voyageTable {
         return $query->fetchAll();
     }
 
+    public static function createTrip($userId, $startCity, $endCity, $price, $nbSeats, $depTime, $constraints) {
+        $em = dbconnection::getInstance()->getEntityManager();
+        $user = $em->getRepository('utilisateur')->find($userId);
+        $path = $em->getRepository('trajet')->findOneBy(array('depart' => $startCity, 'arrivee' => $endCity));
+
+        $trip = new voyage();
+        $trip->conducteur = $user;
+        $trip->trajet = $path;
+        $trip->tarif = $price;
+        $trip->nbplace = $nbSeats;
+        $trip->heureDepart = $depTime;
+        $trip->contraintes = $constraints;
+
+        $em->persist($trip);
+        $em->flush();
+
+        return $trip;
+    }
+
 }
 
 ?>
