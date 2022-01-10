@@ -46,6 +46,17 @@
                             <span class="col-1 bg-primary rounded fs-4 fw-bold text-white text-center"><?=$p->tarif?>€</span>
                         </div>
                     <?php endforeach; ?>
+                    <div class="row card-body">
+                        <span class="col-10"></span>
+                        <?php if($context->getSessionAttribute('userId')): ?>
+                            <form method="post" class="col-2 p-0">
+                                <input type="hidden" name="resaCount" value="5">
+                                <button type="submit" class="btn btn-secondary">Reserver</button>
+                            </form>
+                        <?php else: ?>
+                            <a class="btn btn-secondary col-2" href="monApplication.php?action=login">Connexion requise</a>
+                        <?php endif; ?>
+                    </div>
                 </div>
             </div>
         <?php endforeach; ?>
