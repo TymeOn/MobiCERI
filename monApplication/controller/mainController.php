@@ -41,6 +41,7 @@ class mainController
                             'connections' => '',
                             'price' => $t->tarif,
                             'id' => $counter,
+                            'tripIds' => $t->id,
                         ],
                         'path' => [$t],
                     ];
@@ -64,6 +65,7 @@ class mainController
                             'connections' => '',
                             'price' => 0,
                             'id' => $counter,
+                            'tripIds' => $t['f_vid'],
                         ],
                         'path' => [],
                     ];
@@ -76,6 +78,7 @@ class mainController
                     $context->trips = array_merge($context->trips, [$currentTrip]);
                 } else {
                     $currentTrip['info']['connections'] .= $t['f_varr'] . ' ';
+                    $currentTrip['info']['tripIds'] .= '/' . $t['f_vid'];
                 }
             }
         }

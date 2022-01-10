@@ -48,7 +48,7 @@
                     <?php endforeach; ?>
                     <div class="row card-body">
                         <span class="col-10"></span>
-                        <div class="resaSection col-2"></div>
+                        <div class="resaSection col-2" data-value="<?=$t['info']['tripIds']?>"></div>
                     </div>
                 </div>
             </div>
@@ -62,6 +62,7 @@
 
     if (document.getElementById('isLogged').dataset.value !== '') {
         Array.from(sections).forEach(section => {
+            console.log(section.dataset.value);
             section.innerHTML = "<a class='btn btn-primary' href='monApplication.php?action=login'>Reserver</a>";
         });
     } else {
