@@ -252,8 +252,8 @@ class mainController
             //reservationTable::createReservation($t, $userId);
         }
 
-        $context->redirect('monApplication.php?action=userTrips');
-        die();
+//        $context->redirect('monApplication.php?action=userTrips');
+//        die();
     }
 
 
