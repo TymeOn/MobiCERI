@@ -242,7 +242,7 @@ class mainController
         $parameterName = 'tripId';
         $count = 1;
         while (isset($request[$parameterName.$count])) {
-            $tripIds = array_push($tripIds, $request[$parameterName.$count]);
+            array_push($tripIds, $request[$parameterName.$count]);
             $count++;
         }
 
@@ -271,7 +271,7 @@ class mainController
         $context->trips = [];
 
         foreach ($reservations as $r) {
-            $context->trips = array_push($context->trips, voyageTable::getVoyage($r['voyage']));
+            array_push($context->trips, voyageTable::getVoyage($r['voyage']));
         }
 
         return context::SUCCESS;
