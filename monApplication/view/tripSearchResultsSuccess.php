@@ -48,7 +48,7 @@
                     <?php endforeach; ?>
                     <div class="row card-body">
                         <span class="col-10"></span>
-                        <div id="resaSection" class="col-2"></div>
+                        <div class="resaSection col-2"></div>
                     </div>
                 </div>
             </div>
@@ -59,11 +59,13 @@
 
 <script>
     if (document.getElementById('isLogged').dataset.value !== '') {
-        document.getElementById('resaSection').innerHTML = "" +
-            "<a class='btn btn-secondary' href='monApplication.php?action=login'>Reserver</a>";
+        document.getElementsByClassName('resaSection').forEach(section => {
+            section.innerHTML = "<a class='btn btn-primary' href='monApplication.php?action=login'>Reserver</a>";
+        });
     } else {
-        document.getElementById('resaSection').innerHTML = "" +
-            "<a class='btn btn-secondary' href='monApplication.php?action=login'>Connexion requise</a>";
+        document.getElementsByClassName('resaSection').forEach(section => {
+            section.innerHTML = "<a class='btn btn-secondary' href='monApplication.php?action=login'>Connectez-vous</a>";
+        });
     }
 </script>
 
