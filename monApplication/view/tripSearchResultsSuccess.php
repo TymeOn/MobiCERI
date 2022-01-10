@@ -58,12 +58,14 @@
 <?php endif ?>
 
 <script>
+    let sections = document.getElementsByClassName('resaSection');
+
     if (document.getElementById('isLogged').dataset.value !== '') {
-        document.getElementsByClassName('resaSection').forEach(section => {
+        Array.from(sections).forEach(section => {
             section.innerHTML = "<a class='btn btn-primary' href='monApplication.php?action=login'>Reserver</a>";
         });
     } else {
-        document.getElementsByClassName('resaSection').forEach(section => {
+        Array.from(sections).forEach(section => {
             section.innerHTML = "<a class='btn btn-secondary' href='monApplication.php?action=login'>Connectez-vous</a>";
         });
     }
