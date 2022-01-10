@@ -48,14 +48,7 @@
                     <?php endforeach; ?>
                     <div class="row card-body">
                         <span class="col-10"></span>
-                        <div id="resaSection">
-
-                        </div>
-                        <?php if($context->getSessionAttribute('userId')): ?>
-
-                        <?php else: ?>
-
-                        <?php endif; ?>
+                        <div id="resaSection" class="col-2"></div>
                     </div>
                 </div>
             </div>
@@ -67,10 +60,10 @@
 <script>
     if (document.getElementById('isLogged').dataset.value !== '') {
         document.getElementById('resaSection').innerHTML = "" +
-            "<a class='btn btn-secondary col-2' href='monApplication.php?action=login'>Reserver</a>";
+            "<a class='btn btn-secondary' href='monApplication.php?action=login'>Reserver</a>";
     } else {
         document.getElementById('resaSection').innerHTML = "" +
-            "<a class='btn btn-secondary col-2' href='monApplication.php?action=login'>Connexion requise</a>";
+            "<a class='btn btn-secondary' href='monApplication.php?action=login'>Connexion requise</a>";
     }
 </script>
 
