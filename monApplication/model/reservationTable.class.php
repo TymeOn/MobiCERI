@@ -26,12 +26,12 @@ class reservationTable {
 
     public static function createReservation($tripId, $userId) {
 
-        $trip = voyageTable::getVoyage($tripId);
+        $em = dbconnection::getInstance()->getEntityManager();
+
+        $trip = $em->getRepository('voyage')->find($tripId);
         $rValue = false;
 
         if ($trip->nbPlace > 1) {
-            $em = dbconnection::getInstance()->getEntityManager();
-
             $resa = new reservation();
             $resa->voyage = $tripId;
             $resa->voyageur = $userId;
