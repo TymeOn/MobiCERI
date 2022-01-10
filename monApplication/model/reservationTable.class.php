@@ -4,6 +4,7 @@ require_once "reservation.class.php";
 
 class reservationTable {
 
+    // recuperer toutes les reservations relatives à un voyage
     public static function getReservationByVoyage($voyage) {
         $em = dbconnection::getInstance()->getEntityManager() ;
         $reservationRepository = $em->getRepository('reservation');
@@ -14,6 +15,7 @@ class reservationTable {
         return $reservations;
     }
 
+    // recuperer toutes les reservations relatives à un utilisateur
     public static function getReservationByUserId($userId) {
         $em = dbconnection::getInstance()->getEntityManager() ;
         $reservationRepository = $em->getRepository('reservation');
@@ -21,8 +23,8 @@ class reservationTable {
         return $reservations;
     }
 
+    // générer un nouveau voyage
     public static function createReservation($tripId, $userId) {
-
         $em = dbconnection::getInstance()->getEntityManager();
 
         $trip = $em->getRepository('voyage')->find($tripId);

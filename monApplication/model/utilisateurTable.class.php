@@ -4,6 +4,7 @@ require_once "utilisateur.class.php";
 
 class utilisateurTable {
 
+    // récupérer les infos d'un utilisateur à partir de son identifiant et mot de passe
 	public static function getUserByLoginAndPass($login,$pass) {
 		$em = dbconnection::getInstance()->getEntityManager() ;
 		$userRepository = $em->getRepository('utilisateur');
@@ -11,14 +12,16 @@ class utilisateurTable {
 		return $user;
 	}
 
-	public static function getUserById($id) {
+
+    // récupérer les infos d'un utilisateur à partir de son id
+    public static function getUserById($id) {
 		$em = dbconnection::getInstance()->getEntityManager() ;
 		$userRepository = $em->getRepository('utilisateur');
 		$user = $userRepository->findOneBy(array('id' => $id));
-
 		return $user;
 	}
 
+    // générer un nouvel utilisateur
     public static function createUser($login, $password, $name, $firstName) {
         $em = dbconnection::getInstance()->getEntityManager();
         $user = new utilisateur();
